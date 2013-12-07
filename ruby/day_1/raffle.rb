@@ -53,7 +53,9 @@ class RaffleTest < Test::Unit::TestCase
     ['bruno', 'rachid', 'irineu', 'danilo']
   end
 
-
-
 end
+
+# Desafio: Raffle
+# Escreva um programa que sorteia uma quantidade de nomes com suas posicoes.
+# Se colocar quatro nomes, devera sortear aleatoriamente cada nove que esteja em uma lista de nomes, sem repetir o nome.
 
