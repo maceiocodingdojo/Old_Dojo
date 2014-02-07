@@ -8,6 +8,7 @@ class FizzBuzz
     return 'buzz' if mod5
     return number
   end
+
   def loop(number)
     number.times do |i|
       begin

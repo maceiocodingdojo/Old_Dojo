@@ -50,7 +50,7 @@ class RaffleTest < Test::Unit::TestCase
 
   private
   def get_array
-    ['bruno', 'rachid', 'irineu', 'danilo']
+    ['lima', 'rachid', 'rocha', 'danilo', 'henaldo']
   end
 
 end
