@@ -1,93 +1,5 @@
-class KataPotter
-  @books
-
-  BOOKS = {:book_1 => 'Book 1',
-           :book_2 => 'Book 2',
-           :book_3 => 'Book 3',
-           :book_4 => 'Book 4',
-           :book_5 => 'Book 5'
-  }
-  def initialize
-    @books = Array.new
-  end
-
-  def contains?(book)
-    return @books.include? book
-  end
-
-  def addBook(book)
-    @books << book
-  end
-  def price
-    if @books.empty?
-      return 0
-    end
-    return 8 * @books.size
-  end
-
-  def discount
-    return 0.0 if @books.size == 1
-
-    if @books.size == 2
-      if @books[1] == @books[0]
-        return 0.0
-      else
-        return 0.8
-      end
-    else
-      #baskets = Array.new
-      books_temp = Array.new
-
-      @books.each do |book|
-        books_temp << book
-      end
-      #basket = KataPotter.new
-      #while not @books.empty? do
-      #  #basket
-      #end
-
-      new_books = Array.new
-      books_count = Array.new
-      KataPotter::BOOKS.values.each do |book|
-
-        search_book_count = 0
-
-        @books.each do |b|
-          search_book_count += 1 if b == book
-        end
-
-        #puts "count: #{search_book_count}"
-        books_count << search_book_count
-
-        #if search_book_count == 1
-        #  new_books << book
-        #end
-      end
-      books_discont = Array.new
-      while not books_count.empty? do
-        books_count.each_with_index do |bc, i|
-          puts "Quantidade de livro: #{bc}"
-          if bc >= 1
-            books_count[i] -= 1
-          else
-            books_count.delete_at(i)
-          end
-        end
-      end
-
-      #if new_books.size == 2
-      #  return (new_books.size * 8 * 0.05).round(2)
-      #end
-      #if new_books.size == 3
-      #  return (new_books.size * 8  * 0.1).round(2)
-      #end
-
-    end
-    return 0.0
-  end
-end
-
 require "test/unit"
+require_relative 'KataPotter'
 class KataPotterTest < Test::Unit::TestCase
 
   def test_contains_book
@@ -97,18 +9,37 @@ class KataPotterTest < Test::Unit::TestCase
     assert_equal true, kata.contains?(KataPotter::BOOKS[:book_1]), 'contem o livro'
   end
 
+  def test_empty?
+    kata = KataPotter.new
+
+    assert_equal true, kata.empty?, 'Deve estar vazio'
+    kata.addBook KataPotter::BOOKS[:book_1]
+    assert_equal false, kata.empty?, 'Nao deve estar vazio'
+
+  end
+
+  def test_max_repeated_books_count
+    kata = KataPotter.new
+    assert_equal 0, kata.max_repeated_books_count, 'Nao deve conter nenhum livro'
+    kata.addBook KataPotter::BOOKS[:book_1]
+    assert_equal 1, kata.max_repeated_books_count, 'Deve conter um livros repetidos'
+    kata.addBook KataPotter::BOOKS[:book_2]
+    kata.addBook KataPotter::BOOKS[:book_1]
+
+    assert_equal 2, kata.max_repeated_books_count, 'Deve conter dois livros repetidos'
+  end
+
   def test_split_books
-    kata = kataPotter.new
+    kata = KataPotter.new
     kata.addBook KataPotter::BOOKS[:book_1]
     kata.addBook KataPotter::BOOKS[:book_2]
     kata.addBook KataPotter::BOOKS[:book_1]
 
     baskets = kata.split_books
 
-    assert_equal 2, baskets.count, 'contem o livro'
-
-    assert_equal 16, baskets[0].price, 'contem o livro'
-    assert_equal  8, baskets[1].price, 'contem o livro'
+    assert_equal 2, baskets.count, 'A quantidade de cestas deve ser 2'
+    assert_equal 16, baskets[0].price, 'O valor da cesta 1a cesta deve ser 16'
+    assert_equal  8, baskets[1].price, 'O valor da cesta 2a cesta deve ser 8'
   end
 
   def test_not_contains_book
@@ -178,8 +109,30 @@ class KataPotterTest < Test::Unit::TestCase
     assert_equal 24.0, kata.price, 'Com 3 book iguais o valor deve ser igual a 24.00 euros.'
     assert_equal 0.0, kata.discount, 'Com 3 book iguais o desconto deve ser igual a 0.0 euros.'
   end
+  def test_4_books
+    kata = KataPotter.new
+    kata.addBook(KataPotter::BOOKS[:book_1])
+    kata.addBook(KataPotter::BOOKS[:book_1])
+    kata.addBook(KataPotter::BOOKS[:book_1])
+    kata.addBook(KataPotter::BOOKS[:book_1])
+
+    assert_equal 32.0, kata.price, 'Com 4 book o valor deve ser igual a 32.00 euros.'
+    assert_equal 0.0, kata.discount, 'Com 4 book iguais o desconto deve ser igual a 0.0 euros.'
+
+    kata2 = KataPotter.new
+    kata2.addBook(KataPotter::BOOKS[:book_1])
+    kata2.addBook(KataPotter::BOOKS[:book_2])
+    kata2.addBook(KataPotter::BOOKS[:book_3])
+    kata2.addBook(KataPotter::BOOKS[:book_4])
+
+    assert_equal 6.4, kata2.discount, 'Com 4 book iguais o desconto deve ser igual a 0.0 euros.'
+
+    kata3 = KataPotter.new
+    kata3.addBook(KataPotter::BOOKS[:book_1])
+    kata3.addBook(KataPotter::BOOKS[:book_1])
+    kata3.addBook(KataPotter::BOOKS[:book_3])
+    kata3.addBook(KataPotter::BOOKS[:book_4])
+
+    assert_equal 2.4, kata3.discount, 'Com 4 book iguais o desconto deve ser igual a 0.0 euros.'
+  end
 end
-
-
-
-# http://codingdojo.org/cgi-bin/wiki.pl?KataPotter
