@@ -24,6 +24,8 @@ class Basket
       when 5
         return 0.25
     end
+
+    return 0.0
   end
 
   def total_amount(baskets)
@@ -38,11 +40,11 @@ class Basket
   def build_baskets
     baskets = Array.new
     books_repeateds_hash = separate_books_repeateds
-    puts books_repeateds_hash
+    #puts books_repeateds_hash
 
     books_temp = @books.dup
 
-    puts "books_temp.size: #{books_temp.size}"
+    #puts "books_temp.size: #{books_temp.size}"
 
     books_repeateds_hash.each do |book_repeated|
       books_temp.delete book_repeated[:book]
