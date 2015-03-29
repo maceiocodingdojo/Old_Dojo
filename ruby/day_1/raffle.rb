@@ -50,7 +50,10 @@ class RaffleTest < Test::Unit::TestCase
 
   private
   def get_array
-    ['lima', 'rachid', 'rocha', 'danilo', 'henaldo']
+    #['lima', 'rachid', 'rocha', 'danilo', 'henaldo']
+    ['php', 'java', 'gRails', 'rails', 'android', 'ios',
+     'c#', 'windows phone', 'objective-c', 'java script',
+    'vRaptor','jsf 2.0', 'smart', 'cake']
   end
 
 end
