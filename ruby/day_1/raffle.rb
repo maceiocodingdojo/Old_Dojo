@@ -2,10 +2,10 @@ class Raffle
 
   def self.raffle_name (names)
     result = String.new
-    puts "size: #{names}"
+    puts "size: #{names}\n"
     new_names = shuffle_names names
     new_names.each_with_index do |name, index|
-      result << "#{index + 1}- #{name} "
+      result << "#{index + 1}- #{name} \n"
     end
     return result
 
@@ -33,7 +33,7 @@ class RaffleTest < Test::Unit::TestCase
 
   def test_verify_type_of_class
     out = Raffle.raffle_name(get_array)
-    puts "out: #{out}"
+    puts "out: #{out}\n"
     assert_kind_of String, out, 'Tem que ser do tipo String'
   end
 
